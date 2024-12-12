@@ -23,15 +23,15 @@ const Hero = () => {
                         words='Hi, I&apos;am Rushikesh Patil, Software Developer'
                     />
                     <p className='text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl'>
-                        I am a Front-End / Full-Stack Developer. I am currently working at DocXel as a Software Developer Intern.
+                        As a Software Developer, I completed my internship at DocXel, where I contributed to real-world projects and strengthened my development expertise.
                     </p>
-                    <a href="">
+                    {/* <a href="">
                         <Button
                             title={'Resume'}
                             icon={<IoCloudDownloadOutline />}
                             position={'right'}
                         />
-                    </a>
+                    </a> */}
                 </div>
             </div>
 
