@@ -6,14 +6,14 @@ import { CanvasRevealEffect } from "./ui/CanvasRevealEffect";
 
 const Approach = () => {
   return (
-    <section className="w-full py-20">
+    <section className="w-full py-20" id="skills">
       <h1 className="heading">
         My <span className="text-purple">Skills</span>
       </h1>
-      <div className="py-20 flex flex-col lg:flex-row items-center justify-center gap-4 ">
+      <div className="py-20 flex flex-col lg:flex-row items-center justify-center gap-4">
         <Card
-          title="Next JS"
-          icon={<AceternityIcon order="Frontend" />}
+          title={["Next JS", "React JS", "Redux Toolkit", "Material UI"]}
+          icon={<AceternityIcon order="Frontend Frameworks & Libraries" />}
         >
           <CanvasRevealEffect
             animationSpeed={3}
@@ -21,8 +21,9 @@ const Approach = () => {
           />
         </Card>
         <Card
-          title="Acertinity UI"
-          icon={<AceternityIcon order="Frameworks" />}>
+          title={["HTML", "CSS", "Javascript", "Typescript"]}
+          icon={<AceternityIcon order="Languages" />}
+        >
           <CanvasRevealEffect
             animationSpeed={3}
             containerClassName="bg-black"
@@ -35,8 +36,9 @@ const Approach = () => {
           <div className="absolute inset-0 [mask-image:radial-gradient(400px_at_center,white,transparent)] bg-black/50 dark:bg-black/90" />
         </Card>
         <Card
-          title="MySQL"
-          icon={<AceternityIcon order="Databases" />}>
+          title={["MySQL"]}
+          icon={<AceternityIcon order="Databases" />}
+        >
           <CanvasRevealEffect
             animationSpeed={3}
             containerClassName="bg-sky-600"
@@ -46,23 +48,24 @@ const Approach = () => {
       </div>
     </section>
   );
-}
+};
 
 const Card = ({
   title,
   icon,
   children,
 }: {
-  title: string;
+  title: string[];
   icon: React.ReactNode;
   children?: React.ReactNode;
 }) => {
   const [hovered, setHovered] = React.useState(false);
+
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="border border-black/[0.2] group/canvas-card flex items-center justify-center dark:border-white/[0.2]  max-w-sm w-full mx-auto p-4 relative h-[30rem] relative"
+      className="border border-black/[0.2] group/canvas-card flex items-center justify-center dark:border-white/[0.2] max-w-sm w-full mx-auto p-4 relative h-[30rem] overflow-hidden"
     >
       <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
       <Icon className="absolute h-6 w-6 -bottom-3 -left-3 dark:text-white text-black" />
@@ -74,6 +77,7 @@ const Card = ({
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="h-full w-full absolute inset-0"
           >
             {children}
@@ -81,13 +85,37 @@ const Card = ({
         )}
       </AnimatePresence>
 
-      <div className="relative z-20">
-        <div className="text-center group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0 transition duration-200 w-full  mx-auto flex items-center justify-center">
+      <div className="relative z-20 flex flex-col items-center justify-center h-full">
+        <div
+          className={`text-center transition-all duration-200 ${hovered ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+            }`}
+        >
           {icon}
         </div>
-        <h2 className="dark:text-white text-xl opacity-0 group-hover/canvas-card:opacity-100 relative z-10 text-black mt-4  font-bold group-hover/canvas-card:text-white group-hover/canvas-card:-translate-y-2 transition duration-200">
-          {title}
-        </h2>
+        <motion.div
+          className={`dark:text-white text-xl text-black font-bold transition-all duration-200 text-center ${hovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            } absolute inset-0 flex flex-col items-center justify-center`}
+        >
+          {title.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ delay: index * 0.2, duration: 0.4 }}
+              className="mb-2 cursor-pointer"
+              whileHover={{
+                scale: 1.1,
+                color: "#ffff",
+                x: 10,
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item}
+            </motion.div>
+          ))}
+        </motion.div>
+
       </div>
     </div>
   );
